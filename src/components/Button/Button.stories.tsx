@@ -8,6 +8,7 @@ const meta = {
   component: Button,
   args: {
     children: 'Button',
+    large: true,
   },
   parameters: {
     design: {
