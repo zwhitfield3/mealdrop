@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
+import { expect, fn } from 'storybook/test'
+
 import { Select } from './Select'
 
 const meta = {
@@ -29,5 +31,20 @@ export const WithLabel: Story = {
     ...Default.args,
     id: 'select',
     label: 'Select field',
+  },
+}
+
+export const ChangingQuantity: Story = {
+  args: {
+    options: [1, 2, 3, 4, 5],
+    id: 'quantity',
+    label: 'Quantity',
+    'aria-label': 'quantity',
+    onChange: fn(),
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    const select = canvas.getByRole('combobox', { name: 'quantity' })
+    await userEvent.selectOptions(select, '3')
+    await expect(args.onChange).toHaveBeenCalledWith(3)
   },
 }

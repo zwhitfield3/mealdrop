@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Input } from './Input'
-import { fn } from 'storybook/test'
+import { expect, fn } from 'storybook/test'
 
 const meta = {
   title: 'Components/Form/Input',
@@ -53,5 +53,18 @@ export const ErrorValidation: Story = {
     label: 'Input field',
     value: 'jane@doecom',
     error: 'email should be valid',
+  },
+}
+
+export const TypingUpdatesValue: Story = {
+  args: {
+    ...WithLabel.args,
+    placeholder: 'Enter your email',
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    const input = canvas.getByLabelText('Input field')
+    await userEvent.type(input, 'jane@doe.com')
+    await expect(input).toHaveValue('jane@doe.com')
+    await expect(args.onChange).toHaveBeenCalledTimes('jane@doe.com'.length)
   },
 }
