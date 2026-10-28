@@ -35,6 +35,8 @@ export const Disabled: Story = {
 export const Clear: Story = {
   args: {
     clear: true,
+    // Intentional a11y violation for the Chromatic demo: low-contrast text
+    style: { color: '#BCBCBC' },
   },
 }
 
