@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-vite'
+import { Decorator, Meta, StoryObj } from '@storybook/react-vite'
 import { http, HttpResponse, delay } from 'msw'
 import { expect, mocked } from 'storybook/test'
+import { ThemeProvider } from 'styled-components'
 
 import { BASE_URL } from '../../api'
 import { restaurantsCompleteData } from '../../stub/restaurants'
@@ -9,11 +10,28 @@ import { withDeeplink } from '../../../.storybook/withDeeplink'
 
 import { RestaurantDetailPage } from './RestaurantDetailPage'
 import { getCurrency } from '../../helpers/getCurrency'
+import { lightTheme } from '../../styles/theme'
+
+// Render the header cart label in white so it meets contrast on the primary button.
+// Listed after withDeeplink so it wraps the header that withDeeplink renders.
+const withAccessibleCartText: Decorator = (StoryFn, { parameters }) =>
+  parameters.accessibleCartText ? (
+    <ThemeProvider
+      theme={{
+        ...lightTheme,
+        color: { ...lightTheme.color, cartButtonText: lightTheme.color.buttonText },
+      }}
+    >
+      <StoryFn />
+    </ThemeProvider>
+  ) : (
+    <StoryFn />
+  )
 
 const meta = {
   title: 'Pages/RestaurantDetailPage',
   component: RestaurantDetailPage,
-  decorators: [withDeeplink],
+  decorators: [withDeeplink, withAccessibleCartText],
   parameters: {
     layout: 'fullscreen',
     deeplink: {
@@ -60,6 +78,7 @@ export const WithModalOpen: Story = {
 
 export const WithItemsInTheCart: Story = {
   parameters: {
+    accessibleCartText: true,
     store: {
       initialState: { cart: { items: cartItems } },
     },
