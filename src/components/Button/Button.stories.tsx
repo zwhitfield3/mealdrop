@@ -20,7 +20,12 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {}
+export const Default: Story = {
+  args: {
+    // Intentional a11y violation for the Chromatic demo: aria-hidden on a focusable element
+    'aria-hidden': true,
+  },
+}
 
 export const Disabled: Story = {
   args: {

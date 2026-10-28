@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useEffect, useState } from 'react'
-import { fn } from 'storybook/test'
+import { expect, fn, waitFor } from 'storybook/test'
 
 import { Button } from '../Button'
 import { Body } from '../typography'
@@ -70,5 +70,30 @@ export const Desktop: Story = {}
 export const Mobile: Story = {
   globals: {
     viewport: { value: 'iphonex', isRotated: false },
+  },
+}
+
+export const ClosesWithButton: Story = {
+  play: async ({ canvas, userEvent }) => {
+    await waitFor(() => expect(canvas.getByTestId('modal')).toBeVisible())
+    await userEvent.click(canvas.getByRole('button', { name: 'close modal' }))
+    await waitFor(() => expect(canvas.queryByTestId('modal')).not.toBeInTheDocument())
+  },
+}
+
+export const ClosesWithEscape: Story = {
+  play: async ({ canvas, userEvent }) => {
+    await waitFor(() => expect(canvas.getByTestId('modal')).toBeVisible())
+    await userEvent.keyboard('{Escape}')
+    await waitFor(() => expect(canvas.queryByTestId('modal')).not.toBeInTheDocument())
+  },
+}
+
+export const ReopensFromButton: Story = {
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(await canvas.findByRole('button', { name: 'close modal' }))
+    await waitFor(() => expect(canvas.queryByTestId('modal')).not.toBeInTheDocument())
+    await userEvent.click(canvas.getByRole('button', { name: 'Open modal' }))
+    await waitFor(() => expect(canvas.getByTestId('modal')).toBeVisible())
   },
 }
