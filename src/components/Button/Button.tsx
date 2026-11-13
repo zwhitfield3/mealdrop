@@ -24,16 +24,17 @@ const StyledButton = styled.button<StyledButtonProperties>(
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: ${$withIcon ? '0.7rem' : $large ? '1.5rem 1.5rem' : '1.125rem 1.5rem'};
+    padding: ${$withIcon ? '0.85rem' : $large ? '1.75rem 2rem' : '1.375rem 2rem'};
+    font-size: 1.125rem;
     color: ${$clear ? color.primaryText : color.buttonText};
 
     transition: box-shadow 150ms ease-in;
     z-index: 1;
-    background-color: ${$clear ? color.buttonClear : color.buttonPrimary};
+    background-color: ${$clear ? color.buttonClear : '#5b3fd6'};
 
     &:hover {
       cursor: pointer;
-      background-color: ${$clear ? color.buttonClearHover : color.buttonPrimaryHover};
+      background-color: ${$clear ? color.buttonClearHover : '#4a2fc0'};
     }
 
     &:focus {
@@ -41,12 +42,12 @@ const StyledButton = styled.button<StyledButtonProperties>(
     }
 
     &:disabled {
-      background-color: ${$clear ? color.buttonClear : color.buttonPrimary};
+      background-color: ${$clear ? color.buttonClear : '#5b3fd6'};
       opacity: 0.4;
     }
 
     @media ${breakpoints.M} {
-      padding: ${$withIcon ? '1rem' : $large ? '1.5rem 2rem' : '1.125rem 2rem'};
+      padding: ${$withIcon ? '1.25rem' : $large ? '1.75rem 2.5rem' : '1.375rem 2.5rem'};
     }
   `
 )
