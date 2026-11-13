@@ -1,0 +1,12 @@
+# COMPONENTOWNERS
+# Assigns Chromatic reviewers based on a story's Storybook path (title + story name).
+# Format: <path-pattern> <owner-email> [<owner-email> ...]
+# The last matching rule wins, so keep general rules at the top.
+# Docs: https://www.chromatic.com/docs/component-owners/
+
+# Fallback owner for every story in the project
+*                                zane@chromatic.com
+
+# Design system: all button components
+Components/Button/**             suki@chromatic.com reuben@chromatic.com martin@chromatic.com
+Components/IconButton/**         suki@chromatic.com reuben@chromatic.com martin@chromatic.com
