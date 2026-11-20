@@ -20,7 +20,7 @@ const StyledButton = styled.button<StyledButtonProperties>(
     outline: none;
     border: 0;
     font-family: 'Hind';
-    border-radius: ${$round ? borderRadius.xl : borderRadius.xs};
+    border-radius: ${$round ? borderRadius.xl : borderRadius.s};
     display: inline-flex;
     align-items: center;
     justify-content: center;
